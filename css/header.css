@@ -132,7 +132,7 @@
   /* kompaktnější hlavní položky */
   .menu a, .dropdown-toggle{
     display:block; width:100%;
-    padding:10px 14px;                  /* menší vertikální mezera */
+    padding:14px 18px;                  /* menší vertikální mezera */
     border-radius:0;
     font-size:16px; font-weight:700; text-align:left;
     border-bottom:1px solid rgba(235,221,203,.25);
