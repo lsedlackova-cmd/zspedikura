@@ -1,0 +1,74 @@
+:root{
+  --color-hf:#8E7358;       /* pozadí header/footer */
+  --color-hf-text:#EBDDCB;  /* barva textu + ikon */
+}
+
+/* === WRAP === */
+.site-footer{
+  background:var(--color-hf);
+  color:var(--color-hf-text);
+  margin-top:32px;
+  font-family:'Lato',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+}
+
+/* === HLAVNÍ ŘÁDEK === */
+.footer-inner{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  align-items:center;
+  gap:16px 20px;
+  padding:16px 0;
+  min-height:96px;              /* držíme původní „vyšší“ patičku */
+}
+
+/* Vlevo ikony (desktop pod sebe, mobil vedle sebe) */
+.footer-left{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  align-items:flex-start;
+  color:var(--color-hf-text);
+}
+.footer-left .icon{display:inline-flex; line-height:0; opacity:.98;}
+.footer-left .icon:hover{opacity:1;}
+
+/* Vpravo texty (desktop) */
+.footer-right{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:4px;
+}
+.footer-right .rights{color:var(--color-hf-text); font-size:14px; line-height:1.3;}
+.footer-right .made-by{color:var(--color-hf-text); font-size:13px; line-height:1.3; opacity:.95;}
+
+/* Dole pruh pro mobil – defaultně skrytý na desktopu */
+.footer-bottom{
+  display:none;
+  text-align:center;
+  padding:8px 0 14px;
+  border-top:1px solid rgba(235,221,203,.22); /* jemné oddělení u mobilu */
+}
+.footer-bottom .rights{color:var(--color-hf-text); font-size:12px;}
+
+/* === MOBIL === */
+@media (max-width:767px){
+  .footer-inner{
+    align-items:flex-start;
+    gap:10px 14px;
+    padding:14px 0 6px;
+    min-height:96px; /* výška zůstává příjemně „vyšší“ */
+  }
+  .footer-left{ flex-direction:row; align-items:center; gap:12px; }
+  .footer-right{ align-items:flex-end; }
+  .footer-right .rights{ display:none; }    /* práva dáme dolů doprostřed */
+  .footer-right .made-by{ font-size:12.5px; }
+  .footer-bottom{ display:block; }          /* práva viditelná uprostřed */
+}
+
+
+
+
+
+
+
