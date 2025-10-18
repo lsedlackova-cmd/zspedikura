@@ -1,24 +1,23 @@
-// footer.js — načtení footeru + rok + (volitelně) URL sociálních sítí
+// Vloží footer a nastaví aktuální rok
 (function () {
-  const mount = document.getElementById('footer');
-  if (!mount) return;
+  function initFooter(root){
+    const y = root.querySelector('#footer-year');
+    if (y) y.textContent = String(new Date().getFullYear());
+  }
 
-  fetch('html/footer.html', { cache: 'no-cache' })
+  fetch('html/footer.html')
     .then(r => r.text())
     .then(html => {
-      mount.innerHTML = html;
-
-      // Rok do copyrightu
-      const yearEl = mount.querySelector('#footer-year');
-      if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-      // (Volitelné) doplň sem své URL profilů:
-      // const [insta, fb] = mount.querySelectorAll('.social-link');
-      // if (insta) insta.href = 'https://instagram.com/TVŮJ_PROFIL';
-      // if (fb)   fb.href   = 'https://facebook.com/TVŮJ_PROFIL';
+      const mount = document.getElementById('footer');
+      if (mount){
+        mount.innerHTML = html;
+        initFooter(mount);
+      }
     })
-    .catch(err => console.error('Footer load failed:', err));
+    .catch(console.error);
 })();
+
+
 
 
 
