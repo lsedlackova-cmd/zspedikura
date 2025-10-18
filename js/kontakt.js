@@ -1,3 +1,4 @@
+// kontakt.js — načte kontakt.html do #kontakt a připraví vCard
 (function () {
   function buildVCard() {
     const lines = [
@@ -8,7 +9,7 @@
       'ORG:ZS Pedikúra',
       'TEL;TYPE=CELL,VOICE:+420608331380',
       'EMAIL;TYPE=INTERNET:zspedikura@zspedikura.cz',
-      'ADR;TYPE=WORK:;;;;;;',
+      'ADR;TYPE=WORK:;;;;;;', // doplníš adresu
       'URL:https://www.zspedikura.cz',
       'END:VCARD'
     ];
@@ -16,20 +17,20 @@
     return URL.createObjectURL(blob);
   }
 
-  function enhance(root){
-    const v = root.querySelector('#vcard-download');
-    if (v){
-      v.href = buildVCard();
-      v.setAttribute('download', 'ZS-Pedikura_Zuzka-Scholerova.vcf');
+  function enhance(root) {
+    const vcard = root.querySelector('#vcard-download');
+    if (vcard) {
+      vcard.href = buildVCard();
+      vcard.setAttribute('download', 'ZS-Pedikura_Zuzka-Scholerova.vcf');
     }
   }
 
   fetch('html/kontakt.html')
     .then(r => r.text())
     .then(html => {
-      const el = document.getElementById('kontakt');
-      if (el) {
-        el.outerHTML = html;
+      const placeholder = document.getElementById('kontakt');
+      if (placeholder) {
+        placeholder.outerHTML = html;
       } else {
         const main = document.getElementById('main') || document.querySelector('main') || document.body;
         const wrap = document.createElement('div');
@@ -40,6 +41,7 @@
     })
     .catch(console.error);
 })();
+
 
 
 
