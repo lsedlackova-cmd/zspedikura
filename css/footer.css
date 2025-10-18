@@ -1,81 +1,115 @@
-:root{
-  --color-hf:#8E7358;       /* pozadí header/footer */
-  --color-hf-text:#EBDDCB;  /* barva textu + ikon */
-}
-
-/* ===== WRAP ===== */
+/* === Barvy jako v headeru (z :root v header.css) ===
+   --color-hf       : pozadí header/footer
+   --color-hf-text  : barva písma a ikon v header/footer
+*/
 .site-footer{
-  background:var(--color-hf);
-  color:var(--color-hf-text);
-  margin-top:32px;
-  font-family:'Lato',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  background: var(--color-hf);
+  color: var(--color-hf-text);
+  padding: 14px 0;
+  box-shadow: 0 -2px 8px rgba(0,0,0,.06);
 }
 
-/* ===== HLAVNÍ ŘÁDEK ===== */
 .footer-inner{
-  display:grid;
-  grid-template-columns:auto 1fr;
-  align-items:center;
-  gap:16px 20px;
-  padding:16px 0;
-  min-height:96px;                /* pohodlná výška (jako dřív) */
-}
-
-/* Vlevo: ikony (desktop pod sebe, mobil vedle sebe) */
-.footer-left{
   display:flex;
-  flex-direction:column;          /* desktop stacked */
-  gap:10px;
-  align-items:flex-start;
-  color:var(--color-hf-text);
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
 }
-.footer-left .icon{display:inline-flex; line-height:0; opacity:.98;}
-.footer-left .icon:hover{opacity:1;}
 
-/* Vpravo: texty (desktop) */
-.footer-right{
+/* Sloupce */
+.footer-col{
+  display:flex;
+  align-items:center;
+}
+
+/* ===== Text (2 řádky, každý na 1 řádku) ===== */
+.copyright{
   display:flex;
   flex-direction:column;
-  align-items:flex-end;
-  gap:4px;
+  gap:6px;
+  font: 700 clamp(12px, 2.8vw, 15px)/1 'Lato', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  letter-spacing:.1px;
+  color: var(--color-hf-text, #F7EFE6); /* explicitně pro jistotu kontrast */
+  text-align:right;
 }
-.footer-right .rights{
-  color:var(--color-hf-text);     /* explicitně, aby se nikdy „neztratila“ */
-  font-size:14px; line-height:1.3;
+.nowrap{ white-space: nowrap; }  /* bez zalomení */
+
+/* ===== Ikony sociálních sítí – nad sebou, bez orámování ===== */
+.footer-center{
+  flex-direction:column;
+  gap:10px;
 }
-.footer-right .made-by{
-  color:var(--color-hf-text);
-  font-size:13px; line-height:1.3; opacity:.95;
+.social-link{
+  display:inline-flex;
+  line-height:0;
+  text-decoration:none;
+}
+.social-link svg{
+  width:28px;
+  height:28px;
+  fill: var(--color-hf-text, #F7EFE6);
+  transition: transform .15s ease;
+}
+.social-link:hover svg{ transform: scale(1.06); }
+
+/* ===== Rozvržení ===== */
+/* Mobile first:
+   - levý sloupec skryjeme (aby ikony byly opravdu vlevo)
+   - střed = ikony vlevo
+   - pravý = text vpravo
+*/
+.footer-left{ display:none; }
+.footer-center{ order:1; justify-content:flex-start; flex:1; }
+.footer-right{  order:2; justify-content:flex-end;    flex:1; }
+
+/* Velmi úzké šířky – drobné zmenšení, aby texty zůstaly na 1 řádku */
+@media (max-width: 360px){
+  .copyright{ font-size: 12px; letter-spacing: 0; }
 }
 
-/* Spodní pruh (mobil) – defaultně skrytý na desktopu */
-.footer-bottom{
-  display:none;
-  text-align:center;
-  padding:8px 0 14px;
-  border-top:1px solid rgba(235,221,203,.22); /* jemné oddělení */
+/* Tablet/desktop (≥768 px):
+   - levý prázdný sloupec se zobrazí a dostane flex:1
+   - střední sloupec (ikony) je skutečně uprostřed díky symetrii
+   - pravý sloupec = text vpravo
+*/
+@media (min-width: 768px){
+  .site-footer{ padding: 16px 0; }
+
+  .footer-left{  display:flex; order:1; flex:1; }
+  .footer-center{ order:2; justify-content:center; flex:0 0 auto; }
+  .footer-right{  order:3; justify-content:flex-end; flex:1; }
+
+  .social-link svg{ width:30px; height:30px; }
 }
-.footer-bottom .rights{color:var(--color-hf-text); font-size:12px;}
 
-/* ===== MOBIL ===== */
-@media (max-width:767px){
-  .footer-inner{
-    align-items:flex-start;
-    gap:10px 14px;
-    padding:14px 0 6px;
-    min-height:96px;
-  }
-
-  /* Ikony vedle sebe */
-  .footer-left{ flex-direction:row; align-items:center; gap:12px; }
-
-  /* Vpravo jen malé „Made by“ (práva jsou dole uprostřed) */
-  .footer-right .rights{ display:none; }
-  .footer-right .made-by{ font-size:12.5px; }
-
-  /* Dole uprostřed přes celou šířku */
-  .footer-bottom{ display:block; }
+/* Větší desktop */
+@media (min-width: 1024px){
+  .site-footer{ padding: 18px 0; }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
