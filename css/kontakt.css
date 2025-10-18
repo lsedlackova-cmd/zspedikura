@@ -166,6 +166,18 @@
   flex: 0 0 26px;
   color: #b7935a;
   filter: drop-shadow(0 0 2px rgba(255, 233, 168, 0.4));
+  animation: gift-shimmer 5s ease-in-out infinite;
+}
+@keyframes gift-shimmer {
+  0% {
+    filter: drop-shadow(0 0 2px rgba(255, 233, 168, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 4px rgba(255, 233, 168, 0.65));
+  }
+  100% {
+    filter: drop-shadow(0 0 2px rgba(255, 233, 168, 0.4));
+  }
 }
 
 /* Responsivita */
@@ -226,6 +238,7 @@
     padding: 8px 10px;
   }
 }
+
 
 
 
