@@ -110,19 +110,23 @@
   /* světlejší mobilní panel + jemné oddělení od headeru */
   :root{ --color-hf-mob: #A0886E; } /* o krok světlejší než header */
 
+  /* >>> pevný mobilní panel, stabilní výška i při změně adresního řádku */
   .site-nav{
-    position:absolute; top:90px; left:0; right:0;
-    background:var(--color-hf-mob);
-    display:none;
-    border-top:1px solid rgba(235,221,203,.35);
-    padding-top:8px;
-    /* panel se neveze se stránkou; jemný vnitřní stín nahoře */
+    position: fixed;                  /* dříve absolute */
+    top: 90px; left: 0; right: 0;
+    background: var(--color-hf-mob);
+    display: none;
+    border-top: 1px solid rgba(235,221,203,.35);
+    padding-top: 8px;
     box-shadow: inset 0 6px 10px rgba(0,0,0,0.06);
-    /* panel může být vysoký, ale nepřekryje spodní okraj; ostatní se řeší v submenu vlastním scrollem */
+
+    /* stabilní výška (fallback + preferované dvh) */
     max-height: calc(100vh - 90px);
-    overflow-y:auto;
+    max-height: calc(100dvh - 90px);
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: 14px;
+
+    padding-bottom: calc(14px + env(safe-area-inset-bottom));
   }
   .site-nav.open{ display:block; }
 
@@ -177,4 +181,9 @@
 
   /* logo menší na mobilu */
   .logo-link img{ width:60px; height:60px; }
+
+  /* >>> odsazení obsahu pod fixním headerem (jen na mobilu) */
+  main { padding-top: 96px; }   /* stejná výška jako header */
+  #domu { padding-top: 0; }     /* #domu už má vlastní padding, zabráníme zdvojení */
 }
+
