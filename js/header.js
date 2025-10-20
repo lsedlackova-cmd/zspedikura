@@ -1,4 +1,4 @@
-// header.js — načtení hlavičky a chování menu (finalní verze)
+// header.js — načtení hlavičky a chování menu (upraveno pro přesný scroll na mobilu)
 (function () {
   function initHeaderInteractions(root) {
     const hamburger = root.querySelector('.hamburger');
@@ -29,7 +29,6 @@
         closeDropdown();
       } else {
         openDropdown();
-        // ⬇️ po otevření submenu posuň menu nahoru, aby bylo vidět i "Domů"
         if (nav) nav.scrollTo({ top: 0, behavior: 'smooth' });
       }
     };
@@ -47,12 +46,10 @@
       if (!nav) return;
       const isOpen = nav.classList.toggle('open');
       hamburger.setAttribute('aria-expanded', String(isOpen));
-      if (isOpen) {
-        nav.scrollTop = 0;
-      }
+      if (isOpen) nav.scrollTop = 0;
     });
 
-    // ===== Toggle submenu (nezavírá hlavní menu) =====
+    // ===== Toggle submenu =====
     dropdownToggle?.addEventListener('click', (e) => {
       e.preventDefault();
       toggleDropdown();
@@ -66,10 +63,22 @@
       }
     });
 
-    // ===== Klik na jakýkoli odkaz zavře mobilní menu =====
+    // ===== Klik na odkazy: přesný scroll s kompenzací výšky headeru (jen hash) =====
     root.querySelectorAll('a.nav-link, a.dropdown-link').forEach((a) => {
-      a.addEventListener('click', () => {
-        closeMobileMenu();
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href') || '';
+        if (href.startsWith('#') && href.length > 1) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            const headerH = document.querySelector('.site-header')?.offsetHeight || 96;
+            const y = target.getBoundingClientRect().top + window.pageYOffset - headerH;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+          }
+          closeMobileMenu();
+        } else {
+          closeMobileMenu();
+        }
       });
     });
 
@@ -95,6 +104,7 @@
     })
     .catch(console.error);
 })();
+
 
 
 

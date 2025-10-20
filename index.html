@@ -2,16 +2,19 @@
 <html lang="cs">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>ZS Pedikúra – Zuzka Schölerová</title>
   <meta name="description" content="Profesionální pedikúra – mokrá i suchá, peeling, masáž chodidel, lakování a gel lak. Mobilní pedikúra v čistém a sterilním prostředí." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 
+  <!-- CSS -->
   <link rel="stylesheet" href="css/header.css" />
   <link rel="stylesheet" href="css/domu.css" />
   <link rel="stylesheet" href="css/ome.css" />
+  <link rel="stylesheet" href="css/mojeprace.css" />
+  <link rel="stylesheet" href="css/sluzby.css" />
   <link rel="stylesheet" href="css/kontakt.css" />
   <link rel="stylesheet" href="css/footer.css" />
 
@@ -19,36 +22,61 @@
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      background: #E6D7C2;   /* body */
+      background: #E6D7C2;
       color: #3F352E;
       font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       line-height: 1.6;
-      /* >>> footer vždy u spodku, žádný dodatečný blok */
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
     main { flex: 1; }
-    main section { scroll-margin-top: 96px; }
+    main section { scroll-margin-top: 96px; } /* desktop & fallback */
     .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
     h1, h2, h3 { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; margin: 0 0 12px; }
     a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; height: auto; }
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* jen mobil: globální offset pro kotvy */
+    @media (max-width: 767px){
+      :root { --header-h: 96px; }
+      html { scroll-padding-top: var(--header-h); }
+      html, body { max-width: 100%; overflow-x: hidden; }
+    }
   </style>
 </head>
 <body>
   <div id="header"></div>
+
   <main id="main">
     <section id="domu"></section>
+    <section id="ome"></section>
+    <section id="mojeprace"></section>
+    <section id="sluzby"></section>
+    <section id="kontakt"></section>
   </main>
+
   <div id="footer"></div>
 
+  <!-- JS -->
   <script src="js/header.js" defer></script>
   <script src="js/domu.js" defer></script>
   <script src="js/ome.js" defer></script>
+  <script src="js/mojeprace.js" defer></script>
+  <script src="js/sluzby.js" defer></script>
   <script src="js/kontakt.js" defer></script>
   <script src="js/footer.js" defer></script>
-  
+
+  <!-- spočítá reálnou výšku headeru a nastaví offset pro skoky (jen mobil) -->
+  <script>
+    function setHeaderOffset() {
+      const h = document.querySelector('.site-header')?.offsetHeight || 96;
+      document.documentElement.style.setProperty('--header-h', h + 'px');
+    }
+    window.addEventListener('load', () => { setHeaderOffset(); setTimeout(setHeaderOffset, 60); });
+    window.addEventListener('resize', setHeaderOffset);
+    window.addEventListener('orientationchange', setHeaderOffset);
+  </script>
 </body>
 </html>
 
