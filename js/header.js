@@ -1,55 +1,63 @@
-// header.js — načtení hlavičky a chování menu (upraveno pro přesný scroll na mobilu)
+// header.js — načtení hlavičky + Elegant Glass mobilní menu (bez změn na desktopu)
 (function () {
   function initHeaderInteractions(root) {
     const hamburger = root.querySelector('.hamburger');
     const nav = root.querySelector('#site-nav');
+    const dropdownWrap = root.querySelector('.has-dropdown');
     const dropdownToggle = root.querySelector('.dropdown-toggle');
-    const dropdown = root.querySelector('.dropdown');
 
     const isMobile = () => window.innerWidth <= 767;
 
-    const openDropdown = () => {
-      if (dropdown) {
-        dropdown.style.display = 'block';
-        dropdownToggle?.setAttribute('aria-expanded', 'true');
-      }
-    };
+    // --- vytvoř "Quick actions" (WhatsApp/Zavolat) jen jednou a jen na mobilu ---
+    function ensureQuickCTA() {
+      if (!nav || nav.querySelector('.quick-cta')) return;
+      const cta = document.createElement('div');
+      cta.className = 'quick-cta';
+      cta.innerHTML = `
+        <a class="chip" href="https://wa.me/420608331380" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="chip" href="tel:+420608331380">Zavolat</a>
+      `;
+      nav.appendChild(cta);
+    }
 
-    const closeDropdown = () => {
-      if (dropdown) {
-        dropdown.style.display = 'none';
-        dropdownToggle?.setAttribute('aria-expanded', 'false');
-      }
-    };
+    // --- stav submenu (třída .open na <li.has-dropdown>) ---
+    function openDropdown() {
+      if (!dropdownWrap) return;
+      dropdownWrap.classList.add('open');
+      dropdownToggle?.setAttribute('aria-expanded', 'true');
+    }
+    function closeDropdown() {
+      if (!dropdownWrap) return;
+      dropdownWrap.classList.remove('open');
+      dropdownToggle?.setAttribute('aria-expanded', 'false');
+    }
+    function toggleDropdown() {
+      if (!dropdownWrap) return;
+      const isOpen = dropdownWrap.classList.toggle('open');
+      dropdownToggle?.setAttribute('aria-expanded', String(isOpen));
+      if (nav && isOpen) nav.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-    const toggleDropdown = () => {
-      if (!dropdown) return;
-      const expanded = dropdownToggle?.getAttribute('aria-expanded') === 'true';
-      if (expanded) {
-        closeDropdown();
-      } else {
-        openDropdown();
-        if (nav) nav.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    };
-
-    const closeMobileMenu = () => {
+    function closeMobileMenu() {
       if (!nav) return;
       nav.classList.remove('open');
       hamburger?.setAttribute('aria-expanded', 'false');
       closeDropdown();
       nav.scrollTop = 0;
-    };
+    }
 
     // ===== Hamburger toggle (mobil) =====
     hamburger?.addEventListener('click', () => {
       if (!nav) return;
       const isOpen = nav.classList.toggle('open');
       hamburger.setAttribute('aria-expanded', String(isOpen));
-      if (isOpen) nav.scrollTop = 0;
+      if (isOpen) {
+        ensureQuickCTA();
+        nav.scrollTop = 0;
+      }
     });
 
-    // ===== Toggle submenu =====
+    // ===== Toggle submenu (nezavírá hlavní menu) =====
     dropdownToggle?.addEventListener('click', (e) => {
       e.preventDefault();
       toggleDropdown();
@@ -63,22 +71,13 @@
       }
     });
 
-    // ===== Klik na odkazy: přesný scroll s kompenzací výšky headeru (jen hash) =====
+    // ===== Klik na jakýkoli odkaz zavře mobilní menu =====
     root.querySelectorAll('a.nav-link, a.dropdown-link').forEach((a) => {
-      a.addEventListener('click', (e) => {
-        const href = a.getAttribute('href') || '';
-        if (href.startsWith('#') && href.length > 1) {
-          e.preventDefault();
-          const target = document.querySelector(href);
-          if (target) {
-            const headerH = document.querySelector('.site-header')?.offsetHeight || 96;
-            const y = target.getBoundingClientRect().top + window.pageYOffset - headerH;
-            window.scrollTo({ top: y, behavior: 'smooth' });
-          }
-          closeMobileMenu();
-        } else {
-          closeMobileMenu();
-        }
+      a.addEventListener('click', () => {
+        if (isMobile()) closeMobileMenu();
+        // volitelně zvýrazni aktivní sekci (mobilní náznak)
+        root.querySelectorAll('a.nav-link.is-active').forEach(x => x.classList.remove('is-active'));
+        a.classList.add('is-active');
       });
     });
 
@@ -93,7 +92,7 @@
   }
 
   // ===== Načti fragment hlavičky a inicializuj =====
-  fetch('html/header.html')
+  fetch('html/header.html?v=3') // malé verzování proti cache
     .then((r) => r.text())
     .then((html) => {
       const mount = document.getElementById('header');
@@ -104,6 +103,7 @@
     })
     .catch(console.error);
 })();
+
 
 
 
