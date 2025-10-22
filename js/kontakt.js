@@ -4,8 +4,8 @@
     const lines = [
       'BEGIN:VCARD',
       'VERSION:3.0',
-      'FN:Zuzka Schölerová',
-      'N:Schölerová;Zuzka;;;',
+      'FN:Zuzana Schölerová',
+      'N:Schölerová;Zuzana;;;',
       'ORG:ZS Pedikúra',
       'TEL;TYPE=CELL,VOICE:+420608331380',
       'EMAIL;TYPE=INTERNET:zspedikura@zspedikura.cz',
@@ -21,7 +21,7 @@
     const vcard = root.querySelector('#vcard-download');
     if (vcard) {
       vcard.href = buildVCard();
-      vcard.setAttribute('download', 'ZS-Pedikura_Zuzka-Scholerova.vcf');
+      vcard.setAttribute('download', 'ZS-Pedikura_Zuzana-Scholerova.vcf');
     }
   }
 
