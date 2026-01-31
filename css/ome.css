@@ -55,7 +55,7 @@
 /* === FOTO + CERTIFIKÁTY === */
 .about-photo {
   --hero-ratio: 4/3;   /* hlavní fotka */
-  --thumb-ratio: 4/3;  /* malé fotky */
+  --thumb-ratio: 3/4;  /* malé fotky */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -74,22 +74,43 @@
 /* malé fotky */
 .certs {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
   width: 100%;
   max-width: 520px;
   margin-top: 14px;
 }
-.certs img {
-  width: 100%;
+
+.cert-frame {
   aspect-ratio: var(--thumb-ratio);
-  object-fit: cover;
+  background: #f2e7d9; /* pasparta */
+  padding: 6px;
+
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  /* dvojitý rámeček */
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.7),   /* vnitřní linka */
+    inset 0 0 0 2px rgba(63,53,46,0.25),     /* hlavní rám */
+    0 2px 8px rgba(0,0,0,0.08);              /* jemný stín */
+
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   transition: transform 0.2s ease;
 }
-.certs img:hover {
+
+.cert-frame:hover {
   transform: scale(1.04);
+}
+
+.cert-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 /* === RESPONSIVITA === */
