@@ -23,18 +23,18 @@
       id: 1,
       imgPred: 'img/mojeprace-1-pred.png',
       imgPo:   'img/mojeprace-1-po.png',
-      popis: 'Ošetření ztvrdlé kůže a úprava nehtů.',
+      popis: 'Ošetření ztvrdlé kůže a popraskaných pat.',
       datum: '2025-09-14',
-      reference: 'Výsledek je krásný a bez bolesti.',
+      reference: 'Pocit úlevy hned po ošetření.',
       klient: 'Jana K.'
     },
     {
       id: 2,
       imgPred: 'img/mojeprace-2-pred.png',
       imgPo:   'img/mojeprace-2-po.png',
-      popis: 'Zjemnění popraskaných pat a vyrovnání tvaru nehtů.',
+      popis: 'Úprava tvaru nehtů a lakování.',
       datum: '2025-09-20',
-      reference: 'Pocit úlevy hned po ošetření.',
+      reference: 'Výsledek je krásný a bez bolesti.',
       klient: 'Petra N.'
     },
     {
@@ -42,9 +42,9 @@
       imgPred: 'img/mojeprace-3-pred.png',
       imgPo:   'img/mojeprace-3-po.png',
       popis: 'Ošetření zarůstajícího nehtu, lokální citlivý přístup.',
-      datum: '2025-10-05',
-      reference: 'Konečně bez bolesti, děkuji.',
-      klient: 'Lenka V.'
+      datum: '-',
+      reference: 'Krátká reference — bude doplněno.',
+      klient: '-'
     },
     // Připravené (zatím klidně bez fotek — skript vloží placeholder, pokud soubory chybí)
     {
@@ -52,7 +52,7 @@
       imgPred: 'img/mojeprace-4-pred.png',
       imgPo:   'img/mojeprace-4-po.png',
       popis: 'Příklad práce – bude doplněno.',
-      datum: '2025-10-10',
+      datum: '-',
       reference: 'Krátká reference — bude doplněno.',
       klient: '—'
     },
@@ -61,7 +61,7 @@
       imgPred: 'img/mojeprace-5-pred.png',
       imgPo:   'img/mojeprace-5-po.png',
       popis: 'Příklad práce – bude doplněno.',
-      datum: '2025-10-10',
+      datum: '-',
       reference: 'Krátká reference — bude doplněno.',
       klient: '—'
     },
@@ -70,7 +70,7 @@
       imgPred: 'img/mojeprace-6-pred.png',
       imgPo:   'img/mojeprace-6-po.png',
       popis: 'Příklad práce – bude doplněno.',
-      datum: '2025-10-10',
+      datum: '-',
       reference: 'Krátká reference — bude doplněno.',
       klient: '—'
     }
